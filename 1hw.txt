@@ -1,0 +1,29 @@
+CREATE TABLE astronauts(
+	id INT PRIMARY KEY,
+	lname VARCHAR(255),
+	gender CHAR(1),
+	age NUMERIC(3,0),
+	military INT
+);
+
+
+INSERT INTO astronauts VALUES 
+(1, 'Aizer', 'm', 23, 1),
+(2, 'Bartlet', 'm', 45, 0),
+(3, 'Brooks', 'f', 43, 1),
+(4, 'Colbeck', 'm', 34, 1),
+(5, 'Elwes', 'f', 51, 0),
+(6, 'Gedye', 'm', 22, 0),
+(7, 'Hanchett', 'f', 28, 0);
+
+SELECT * FROM astronauts AS a1, astronauts AS a2, astronauts AS a3 
+WHERE a1 != a2 AND a1 != a3 AND a2 != a3
+ AND a1.military = 1
+ AND ((a1.gender='m' AND a2.gender='m' AND a3.gender='m' )
+ OR ((a1.gender='f' AND a2.gender='m' AND a3.gender='m' ) AND (a1.age > a2.age AND a1.age > a3.age))
+ OR (a1.gender='m' AND a2.gender='f' AND a3.gender='m' ) 
+ OR (a1.gender='m' AND a2.gender='m' AND a3.gender='f' ))
+ AND NOT (a1.age >= 35 AND a2.age >= 35 AND a3.age >= 35)
+ AND a3.military = 0;
+ 
+ 
